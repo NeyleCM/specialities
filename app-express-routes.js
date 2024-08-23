@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+
 const usersData = [
     { id: 1, name: 'Alice', age: 28, specialty: 'marketing' },
     { id: 2, name: 'Bob', age: 35, specialty: 'developers' },
@@ -72,111 +73,119 @@ app.get('/home', (req, res) => {
   });
 
 app.get('/marketing', (req, res) => {
-  if (req.path === '/marketing') {
+    const users = getUsersBySpecialty('marketing');
+    const usersCount = users.length;
+    const usersList = users.map((user) => `<li>${user.name}, ${user.age} años</li>`).join('');
     res.send(
         `<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuarios de Marketing con Express</title>
-</head>
-<body>
-    <h1>Usuarios de Marketing</h1>
-        <nav>
+        <html lang="es">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Usuarios de Marketing con Express</title>
+        </head>
+        <body>
+          <h1>Usuarios de Marketing (${usersCount})</h1>
+          <ul>${usersList}</ul>
+          <nav>
             <a href="/home">Home</a>
             <a href="/developers">Developers</a>
             <a href="/QAs">QAs</a>
             <a href="/ventas">Ventas</a>
-        </nav>
-</body>
-</html>`
+          </nav>
+        </body>
+        </html>`
     );
-  }
-});
+  });
 
 app.get('/developers', (req, res) => {
-  if (req.path === '/developers') {
+    const users = getUsersBySpecialty('developers');
+    const usersCount = users.length;
+    const usersList = users.map((user) => `<li>${user.name}, ${user.age} años</li>`).join('');
     res.send(
-     `<!DOCTYPE html>
-<html lang="es">
-<head>
+      `<!DOCTYPE html>
+  <html lang="es">
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuarios Developers con Express</title>
-</head>
-<body>
-    <h1>Usuarios Developers</h1>
-        <nav>
-            <a href="/home">Home</a>
-            <a href="/marketing">Marketing</a>
-            <a href="/QAs">QAs</a>
-            <a href="/ventas">Ventas</a>
-        </nav>
-</body>
-</html>`
+  </head>
+  <body>
+    <h1>Usuarios Developers (${usersCount})</h1>
+    <ul>${usersList}</ul>
+    <nav>
+      <a href="/home">Home</a>
+      <a href="/marketing">Marketing</a>
+      <a href="/QAs">QAs</a>
+      <a href="/ventas">Ventas</a>
+    </nav>
+  </body>
+  </html>`
     );
-  }
-});
+  });
 
 app.get('/QAs', (req, res) => {
-  if (req.path === '/QAs') {
+    const users = getUsersBySpecialty('QAs');
+    const usersCount = users.length;
+    const usersList = users.map((user) => `<li>${user.name}, ${user.age} años</li>`).join('');
     res.send(
-        `<!DOCTYPE html>
-<html lang="es">
-<head>
+      `<!DOCTYPE html>
+  <html lang="es">
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuarios QAs con Express</title>
-</head>
-<body>
-    <h1>Usuarios QAs</h1>
-        <nav>
-            <a href="/home">Home</a>
-            <a href="/marketing">Marketing</a>
-            <a href="/developers">Developers</a>
-            <a href="/ventas">Ventas</a>
-        </nav>
-</body>
-</html>`
+  </head>
+  <body>
+    <h1>Usuarios QAs (${usersCount})</h1>
+    <ul>${usersList}</ul>
+    <nav>
+      <a href="/home">Home</a>
+      <a href="/marketing">Marketing</a>
+      <a href="/developers">Developers</a>
+      <a href="/ventas">Ventas</a>
+    </nav>
+  </body>
+  </html>`
     );
-  }
-});
+  });
 
 app.get('/ventas', (req, res) => {
-    if (req.path === '/ventas') {
-      res.send(
-          `<!DOCTYPE html>
-<html lang="es">
-<head>
+    const users = getUsersBySpecialty('ventas');
+    const usersCount = users.length;
+    const usersList = users.map((user) => `<li>${user.name}, ${user.age} años</li>`).join('');
+    res.send(
+      `<!DOCTYPE html>
+  <html lang="es">
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuarios de Ventas con Express</title>
-</head>
-<body>
-    <h1>Usuarios de Ventas</h1>
-        <nav>
-            <a href="/home">Home</a>
-            <a href="/marketing">Marketing</a>
-            <a href="/developers">Developers</a>
-            <a href="/QAs">QAs</a>
-        </nav>
-</body>
-</html>`
+  </head>
+  <body>
+    <h1>Usuarios de Ventas (${usersCount})</h1>
+    <ul>${usersList}</ul>
+    <nav>
+      <a href="/home">Home</a>
+      <a href="/marketing">Marketing</a>
+      <a href="/developers">Developers</a>
+      <a href="/QAs">QAs</a>
+    </nav>
+  </body>
+  </html>`
       );
-    }
-  });
+    });
   
 
 // Manejo de rutas no encontradas (404)
 app.use((req, res) => {
   res.status(404).send(
     `<!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuarios con Express</title>
+    <title>Página no encontrada</title>
 </head>
 <body>
     <h1>Página no encontrada</h1>
