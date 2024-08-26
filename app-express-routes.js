@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const PORT = 3000
+
 
 const usersData = [
     { id: 1, name: 'Alice', age: 28, specialty: 'marketing' },
@@ -48,7 +50,7 @@ app.use((req, res, next) => {
 });
 
 // Ruta para la página principal (home)
-app.get('/home', (req, res) => {
+app.get('/', (req, res) => {
     res.send(
       `<!DOCTYPE html>
 <html lang="es">
@@ -85,10 +87,10 @@ app.get('/marketing', (req, res) => {
           <title>Usuarios de Marketing con Express</title>
         </head>
         <body>
-          <h1>Usuarios de Marketing (${usersCount})</h1>
+          <h1> ${usersCount} Usuarios de Marketing </h1>
           <ul>${usersList}</ul>
           <nav>
-            <a href="/home">Home</a>
+            <a href="/">Home</a>
             <a href="/developers">Developers</a>
             <a href="/QAs">QAs</a>
             <a href="/ventas">Ventas</a>
@@ -111,10 +113,10 @@ app.get('/developers', (req, res) => {
     <title>Usuarios Developers con Express</title>
   </head>
   <body>
-    <h1>Usuarios Developers (${usersCount})</h1>
+    <h1> ${usersCount} Usuarios Developers</h1>
     <ul>${usersList}</ul>
     <nav>
-      <a href="/home">Home</a>
+      <a href="/">Home</a>
       <a href="/marketing">Marketing</a>
       <a href="/QAs">QAs</a>
       <a href="/ventas">Ventas</a>
@@ -137,10 +139,10 @@ app.get('/QAs', (req, res) => {
     <title>Usuarios QAs con Express</title>
   </head>
   <body>
-    <h1>Usuarios QAs (${usersCount})</h1>
+    <h1> ${usersCount} Usuarios QAs</h1>
     <ul>${usersList}</ul>
     <nav>
-      <a href="/home">Home</a>
+      <a href="/">Home</a>
       <a href="/marketing">Marketing</a>
       <a href="/developers">Developers</a>
       <a href="/ventas">Ventas</a>
@@ -163,10 +165,10 @@ app.get('/ventas', (req, res) => {
     <title>Usuarios de Ventas con Express</title>
   </head>
   <body>
-    <h1>Usuarios de Ventas (${usersCount})</h1>
+    <h1> ${usersCount} Usuarios de Ventas </h1>
     <ul>${usersList}</ul>
     <nav>
-      <a href="/home">Home</a>
+      <a href="/">Home</a>
       <a href="/marketing">Marketing</a>
       <a href="/developers">Developers</a>
       <a href="/QAs">QAs</a>
@@ -191,7 +193,7 @@ app.use((req, res) => {
     <h1>Página no encontrada</h1>
         <h2>Entra en uno de los siguientes enlaces</h2>
         <nav>
-            <a href="/home">Home</a>
+            <a href="/">Home</a>
             <a href="/marketing">Marketing</a>
             <a href="/developers">Developers</a>
             <a href="/QAs">QAs</a>
@@ -202,8 +204,10 @@ app.use((req, res) => {
     );
 });
 
-app.listen(3000, () => {
-  console.log('Node.js está escuchando en el puerto 3000');
+// Iniciar el servidor
+app.listen(PORT, () => {
+  console.log(`Node.js está escuchando en el puerto ${PORT}`);
 });
+
 
 module.exports = app;
